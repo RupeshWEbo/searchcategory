@@ -19,13 +19,9 @@ const fetchSentance = async function (req, res) {
                         checkCat = checkCat.concat(splitData[i])
                     }
                 }
-            }
-            for (let i = 0; i < splitData.length; i++) {
-
                 if (!checkCat.includes(splitData[i])) {
                     checkSubCat = checkSubCat.concat(splitData[i])
                 }
-
             }
             return ReS(res, { subCat: checkSubCat, record: checkCat }, 200);
         }).catch(function (error) {
