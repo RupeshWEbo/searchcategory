@@ -2,8 +2,6 @@ const { ReE, ReS } = require('../../services/util.service');
 var natural = require('natural');
 var top = require('top-packages-category-wise');
 
-
-
 const fetchSentance = async function (req, res) {
     try {
         let body = req.body;
@@ -15,11 +13,11 @@ const fetchSentance = async function (req, res) {
             for (let i = 0; i < splitData.length; i++) {
                 for (let j = 0; j < list.length; j++) {
                     if (splitData[i] == list[j]) {
-                        checkCat = checkCat.concat(splitData[i])
+                        checkCat.push(splitData[i])
                     }
                 }
                 if (!checkCat.includes(splitData[i])) {
-                    checkSubCat = checkSubCat.concat(splitData[i])
+                    checkSubCat.push(splitData[i])
                 }
             }
             return ReS(res, { subCat: checkSubCat, record: checkCat }, 200);
