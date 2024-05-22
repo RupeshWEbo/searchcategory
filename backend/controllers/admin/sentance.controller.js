@@ -10,7 +10,6 @@ const fetchSentance = async function (req, res) {
         let tokenizer = new natural.WordTokenizer();
         let splitData = tokenizer.tokenize(body.sentance)
         top('sport', 10).then(function (list) {
-            let database = list.map((item) => item)
             let checkCat = []
             let checkSubCat = []
             for (let i = 0; i < splitData.length; i++) {
