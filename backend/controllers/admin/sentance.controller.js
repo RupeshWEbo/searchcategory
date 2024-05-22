@@ -9,19 +9,29 @@ const fetchSentance = async function (req, res) {
         let body = req.body;
         let tokenizer = new natural.WordTokenizer();
         let splitData = tokenizer.tokenize(body.sentance)
+        top('sport', 10).then(function (list) {
+            let database = list.map((item) => item)
+            let checkCat = []
+            let checkSubCat = []
+            for (let i = 0; i < splitData.length; i++) {
+                for (let j = 0; j < list.length; j++) {
+                    if (splitData[i] == list[j]) {
+                        checkCat = checkCat.concat(splitData[i])
+                    }
+                }
+            }
+            for (let i = 0; i < splitData.length; i++) {
 
-        fetch('https://dummyjson.com/products/categories')
-            .then(res => res.json())
-            .then(console.log);
+                if (!checkCat.includes(splitData[i])) {
+                    checkSubCat = checkSubCat.concat(splitData[i])
+                }
 
-        // top('country',10).then(function (list) {
-        //     console.log(list); //[ 'express', 'aws-sdk', 'googleapis', ...]
-        // }).catch(function (error) {
-        //     console.log(error);
-        // });
+            }
+            return ReS(res, { subCat: checkSubCat, record: checkCat }, 200);
+        }).catch(function (error) {
+            console.log(error);
+        });
 
-
-        return ReS(res, { message: splitData }, 200);
     } catch (error) {
         console.log(error)
         return ReE(res, { message: "Somthing Went Wrong", err: error }, 200);

@@ -5,6 +5,7 @@ import { SearchSentanceApi } from '../apis/SearchSentanceApi';
 function SearchSentance() {
     const [searchText, setSearchText] = useState("");
     const [category, setCategory] = useState("");
+    const [subCategory, setSubCategory] = useState("");
     useEffect(() => {
         // getAllBanner(searchText)
     }, [])
@@ -12,7 +13,9 @@ function SearchSentance() {
         let data = { "sentance": searchText };
         SearchSentanceApi.getAllSentance(data)
             .then((res) => {
-                setCategory(res.data.message.map((item) => item))
+                console.log(res.data)
+                setCategory(res.data.record.map((item) => item))
+                setSubCategory(res.data.subCat.map((item) => item))
             })
             .catch((err) => {
                 console.log(err);
@@ -44,19 +47,17 @@ function SearchSentance() {
              {category ?
                 <h1> category:{category.map((item, i) =>
                 (
-                    i%2 ===0 &&
+                   
                   
-                        <span> {category[i]}{" "}</span>
+                        <span key={i}> {item}{" "}</span>
                    
                 ))}</h1> :
                 null
             }
-             {category ?
-                <h1> sub category:{category.map((item, i) =>
+             {subCategory ?
+                <h1> sub category:{subCategory.map((item, i) =>
                 (
-                    i%2 !=0 &&
-                  
-                        <span> {category[i]}{" "}</span>
+                        <span  key={i}> {item}{" "}</span>
                    
                 ))}</h1> :
                 null
