@@ -4,7 +4,6 @@ import { SearchSentanceApi } from '../apis/SearchSentanceApi';
 
 function SearchSentance() {
     const [searchText, setSearchText] = useState("");
-    const [category, setCategory] = useState("");
     const [subCategory, setSubCategory] = useState("");
     useEffect(() => {
         // getAllBanner(searchText)
@@ -13,9 +12,8 @@ function SearchSentance() {
         let data = { "sentance": searchText };
         SearchSentanceApi.getAllSentance(data)
             .then((res) => {
-                console.log(res.data)
-                setCategory(res.data.record.map((item) => item))
-                setSubCategory(res.data.subCat.map((item) => item))
+                console.log(res.data.subCat)
+                setSubCategory(res.data.subCat)
             })
             .catch((err) => {
                 console.log(err);
@@ -38,30 +36,21 @@ function SearchSentance() {
                     </button>
                 </div>
             </div>
-          
-            {category ?
-                <h1 style={{"visibility":"hidden"}}> details: </h1>
-                :
+            {subCategory ?
+                <>
+                    <h1>search word</h1>
+                    <h1> {subCategory.map((item, i) =>
+                    (
+                        <>
+                            <span key={i}> {item.word}{"== "}</span>
+                            <span>{item.category.map((item1, index) => `${item1}  `)} </span>
+                            <br></br>
+                        </>
+                    ))}</h1>
+                </> :
                 null
             }
-             {category ?
-                <h1> category:{category.map((item, i) =>
-                (
-                   
-                  
-                        <span key={i}> {item}{" "}</span>
-                   
-                ))}</h1> :
-                null
-            }
-             {subCategory ?
-                <h1> sub category:{subCategory.map((item, i) =>
-                (
-                        <span  key={i}> {item}{" "}</span>
-                   
-                ))}</h1> :
-                null
-            }
+
         </>
     );
 }

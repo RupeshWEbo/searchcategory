@@ -19,8 +19,11 @@
     "nodemon": "^2.0.15",
     "os": "^0.1.2",
     "parse-error": "^0.2.0",
+    "parts-of-speech": "^0.3.0",
+    "pos": "^0.4.2",
     "sequelize": "^6.17.0",
     "sequelize-cli": "^6.4.1",
+    "smart-word-generator": "^1.0.1",
     "socket.io-client": "^4.5.0",
     "top-packages-category-wise": "^1.0.1"
   }
